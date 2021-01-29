@@ -7,7 +7,6 @@ const bodyparser = require('body-parser');
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(bodyparser.json());
 
-
 const userController = require('./controllers/userController');
 const addProduct = require('./controllers/addProduct');
 const cartmodel =require('./controllers/cart');
