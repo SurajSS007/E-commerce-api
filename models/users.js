@@ -32,8 +32,6 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
-
-
 //generating token
 exports = userSchema.methods.generateAuthToken = async function(){
     try {
@@ -46,8 +44,6 @@ exports = userSchema.methods.generateAuthToken = async function(){
         // console.log(error);
     }
 }
-
-
 // hashing
 userSchema.pre('save', function(next){
     this.password = bcrypt.hashSync(this.password, saltRounds);
