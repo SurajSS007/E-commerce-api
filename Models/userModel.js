@@ -3,36 +3,43 @@ const bcrypt = require('bcrypt');       //importing bcrypt
 
 //userSchema for user
 var userSchema = new mongoose.Schema({
-  U_firstname: {
-    type: String
-  },
-  U_lastname: {
-    type: String
-  },
-  U_email: {
+  Ufirstname: {
     type: String,
-    required: true
+    required:true
   },
-  U_password: String,
+  Ulastname: {
+    type: String,
+    required:true
+  },
+  Uemail: {
+    type: String,
+    required:true,
+    unique:true
+  },
+  Upassword: {
+    type:String,
+    required:true
+  },
 //   U_avatar: String,
-  U_age: Number,
-  U_contact: Number,
-  U_address: String,
-  U_gender: {
+  Uage: Number,
+  Ucontact: Number,
+  Uaddress: String,
+  Ugender: {
     type: String,
     enum: ['men', 'women'],
     required: false,
     default: 'men'
-  },
-  products: [
+  }
+  ,
+  Uproducts: [
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
+        ref: 'Cart'
       },
       quantity: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Quantity'
+        ref: 'Cart'
       },
     }
   ]
@@ -44,13 +51,14 @@ var userSchema = new mongoose.Schema({
 userSchema.pre('save', async function (next) {
   try {
     const salt = await bcrypt.genSalt(10)
-    const hashPassword = await bcrypt.hash(this.U_password, salt)
-    this.U_password = hashPassword
+    const hashPassword = await bcrypt.hash(this.Upassword, salt)
+    this.Upassword = hashPassword
     next()
   } catch (err) {
     console.log(err)
   }
 })
+
 
 
 module.exports = mongoose.model('User', userSchema);

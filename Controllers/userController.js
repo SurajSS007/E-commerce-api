@@ -1,31 +1,38 @@
 const mongoose = require('mongoose')
 const User =  mongoose.model('User');
-
+const Cart =  mongoose.model('Cart');
+const bcrypt = require('bcrypt'); 
 module.exports={
     addUser: async (req,res) => {
         try {
             const {
-                U_firstname, U_lastname, U_email,
-                U_password,  U_age, U_gender, U_contact, U_address
+                Ufirstname, Ulastname, Uemail,
+                Upassword,  Uage, Ugender, Ucontact, Uaddress
             } = req.body;
 
             const user = new User();
-            user.U_firstname = U_firstname
-            user.U_lastname = U_lastname
-            user.U_email =   U_email
-            user.U_password = U_password
+            user.Ufirstname = Ufirstname
+            user.Ulastname = Ulastname
+            user.Uemail =   Uemail
+            user.Upassword = Upassword
             // user.U_avatar = uploadResponse.secure_url
-            user.U_age = U_age
-            user.U_gender = U_gender
-            user.U_contact = U_contact
-            user.U_address = U_address
+            user.Uage = Uage
+            user.Ugender = Ugender
+            user.Ucontact = Ucontact
+            user.Uaddress = Uaddress
 
-            await user.save()
-            res.json(user)
+            await user.save() 
+            const user1 = await User.findOne({ Ufirstname: Ufirstname });
+            const cart = new Cart();
+            cart.user = user1._id
+            await cart.save()
+            res.json({ user , cart})
             
         } catch (error) {
             res.send(error);
             console.log(error); 
         }
     }
+
+   
 }
