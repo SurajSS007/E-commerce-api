@@ -3,16 +3,17 @@ const categorySchema = new mongoose.Schema(
   {
     categoryname: {
       type:String,
-      unique: true,
-      required:true
+      required:true,
+      trim:true
     },
     slug: {
         type: String,
         required:true,
-        unique: true
+        unique:true
       },
       parentId: {
-        type: String
+        type: String,
+        unique:false
       },
   }, { timestamps: true });
 
