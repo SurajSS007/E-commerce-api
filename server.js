@@ -12,8 +12,6 @@ const User = mongoose.model('User');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
-
-
 app.use('/adduser',user)
 app.use('/category/create',category)
 app.use('/category/getcategory',category)
